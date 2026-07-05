@@ -53,11 +53,45 @@ https://julim0101.github.io/doldolcouple/
 > 무료 플랜에서 게시하면 이 주소는 공개돼요(링크를 아는 사람은 접속 가능).
 > 완전 비공개로 두고 싶으면 로컬에서 `index.html`을 더블클릭해서 보면 돼요.
 
+## ✍️ 방명록 설정 (공유 방명록 · 파이어베이스 무료)
+
+또요니가 남긴 글을 종욱님도 볼 수 있는 공유 방명록이에요. 딱 한 번만 설정하면 돼요.
+
+1. **파이어베이스 프로젝트 만들기**
+   [console.firebase.google.com](https://console.firebase.google.com) 접속 → **프로젝트 만들기** → 이름 입력(예: `doldolcouple`) → (애널리틱스는 꺼도 됨) → 생성.
+2. **Realtime Database 만들기**
+   왼쪽 메뉴 **빌드 → Realtime Database** → **데이터베이스 만들기** → 위치 선택 → **테스트 모드로 시작** → 사용 설정.
+3. **규칙 열기** (Realtime Database → **규칙** 탭)에 아래를 붙여넣고 **게시**:
+   ```json
+   {
+     "rules": {
+       "guestbook": { ".read": true, ".write": true }
+     }
+   }
+   ```
+4. **웹 앱 등록해서 설정값 받기**
+   프로젝트 개요(⚙️ 옆 홈) → **웹 아이콘 `</>`** 클릭 → 앱 닉네임 입력 → 등록 → 나오는 `firebaseConfig` 값(apiKey, authDomain, **databaseURL**, projectId 등)을 복사.
+5. **설정값 붙여넣기**
+   `index.html` 맨 위 설정의 `firebaseConfig` 안 따옴표에 그 값들을 붙여넣어요. → 저장 후 다시 업로드.
+
+> ⚠️ 위 규칙은 링크를 아는 사람이면 방명록을 읽고 쓸 수 있어요(소규모 커플 페이지엔 보통 충분). 더 안전하게 하고 싶으면 알려주세요.
+
+## 🏠 폰 홈 화면에 앱처럼 추가
+
+Pages 링크를 폰 브라우저로 연 뒤:
+- **아이폰(사파리)**: 공유 버튼 → **홈 화면에 추가**
+- **안드로이드(크롬)**: ⋮ → **홈 화면에 추가**
+
+아이콘은 `photos/icon.jpg`, 이름은 "또요니 💕"로 나와요.
+
 ## 📁 파일 구조
 
 ```
 doldolcouple/
 ├── index.html      ← 페이지 본체 (여기만 편집)
-├── photos/         ← 사진 넣는 곳 (profile.jpg = 프로필 사진)
+├── manifest.json   ← 홈 화면 앱 정보 (아이콘/이름)
+├── photos/         ← 사진 넣는 곳
+│     ├── profile.jpg  = 맨 위 프로필 사진
+│     └── icon.jpg     = 홈 화면 아이콘
 └── README.md       ← 이 안내서
 ```

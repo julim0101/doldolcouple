@@ -4,11 +4,22 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>💕 팬 페이지 💕</title>
+<!-- 폰 홈 화면 추가용 (앱처럼) -->
+<meta name="theme-color" content="#ff8fb1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="또요니 💕" />
+<link rel="apple-touch-icon" href="photos/icon.jpg" />
+<link rel="manifest" href="manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gaegu:wght@400;700&display=swap" rel="stylesheet" />
 <!-- 폭죽(canvas-confetti) — 인터넷 연결 시 작동 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js"></script>
+<!-- 공유 방명록(Firebase) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <!-- ============================================================= -->
 <!--   아래 DATA 안의 내용만 바꾸면 됩니다! 따옴표 " " 안의 글자만.    -->
@@ -114,6 +125,18 @@ const DATA = {
 
   // ── 이번주 날씨 (Open-Meteo, 무료) ──────────────
   weather: { city: "서울", lat: 37.5665, lng: 126.9780 },
+
+  // ── 방명록 (공유) — 파이어베이스 설정 ────────────
+  // Firebase 콘솔에서 복사한 값을 아래 따옴표 안에 붙여넣으세요. (README "방명록 설정" 참고)
+  firebaseConfig: {
+    apiKey: "AIzaSyBsYC245k5ELR_8iSx_qHZiCkgxX6US-hc",
+    authDomain: "doldolcouple.firebaseapp.com",
+    databaseURL: "https://doldolcouple-default-rtdb.firebaseio.com",
+    projectId: "doldolcouple",
+    storageBucket: "doldolcouple.firebasestorage.app",
+    messagingSenderId: "220669096155",
+    appId: "1:220669096155:web:b65ea3c3b0c7d432185cfe",
+  },
 
   // ── 포춘쿠키 ───────────────────────────────────
   fortunes: [
@@ -310,6 +333,19 @@ const DATA = {
   .daily-controls{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
   .daily-controls .fortune-btn{padding:10px 18px;font-size:.9rem;}
 
+  /* 방명록 */
+  .gb-form{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px;}
+  .gb-form input{padding:11px 16px;border-radius:999px;border:2px solid var(--pink-soft);
+    font-family:inherit;font-size:.95rem;outline:none;}
+  .gb-form #gbName{flex:0 0 100px;} .gb-form #gbMsg{flex:1;min-width:180px;}
+  .gb-form input:focus{border-color:var(--pink);}
+  .gb-list{display:flex;flex-direction:column;gap:10px;max-width:640px;margin:0 auto;}
+  .gb-item{background:var(--card);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);}
+  .gb-item .gbn{font-weight:700;color:var(--pink);font-size:.9rem;}
+  .gb-item .gbm{margin-top:4px;color:var(--ink);font-size:.98rem;line-height:1.5;word-break:break-word;}
+  .gb-item .gbd{font-size:.74rem;color:var(--ink-soft);margin-top:6px;}
+  .gb-empty{text-align:center;color:var(--ink-soft);padding:18px;line-height:1.6;}
+
   /* 오늘의 운세 */
   .fortune-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
   .fcard{background:var(--card);border-radius:18px;padding:18px 16px;text-align:center;
@@ -404,6 +440,7 @@ const DATA = {
     <a href="#weather">⛅ 날씨</a>
     <a href="#fortune">🥠 포춘쿠키</a>
     <a href="#daily">📸 오늘의 사진</a>
+    <a href="#guestbook">✍️ 방명록</a>
   </nav>
 
   <section id="today" class="reveal">
@@ -483,6 +520,17 @@ const DATA = {
       <button id="dailyPlay" class="fortune-btn">▶︎ 슬라이드쇼</button>
       <button id="dailyNext" class="fortune-btn">다음 ›</button>
     </div>
+  </section>
+
+  <section id="guestbook" class="reveal">
+    <h2 class="sec-title">✍️ 방명록</h2>
+    <p class="sec-desc">또요니, 한마디씩 남겨줘 💕</p>
+    <div class="gb-form">
+      <input id="gbName" type="text" placeholder="이름" maxlength="12" />
+      <input id="gbMsg" type="text" placeholder="메시지를 남겨보세요 💕" maxlength="140" />
+      <button id="gbBtn" class="fortune-btn">남기기</button>
+    </div>
+    <div class="gb-list" id="gbList"></div>
   </section>
 
   <footer>
@@ -715,6 +763,48 @@ const DATA = {
     cookie.classList.remove('cracked'); void cookie.offsetWidth; cookie.classList.add('cracked');
     setTimeout(()=>{ drawFortune(); ft.style.opacity=1; },200);
   });
+
+  // ── 방명록 (공유, Firebase) ──
+  (function(){
+    const list=$('gbList'), nameI=$('gbName'), msgI=$('gbMsg'), btn=$('gbBtn'); if(!list) return;
+    const cfg=d.firebaseConfig;
+    function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+    if(!cfg || !cfg.apiKey || typeof firebase==='undefined'){
+      list.innerHTML='<p class="gb-empty">방명록을 켜려면 파이어베이스 설정이 필요해요.<br>(README의 “방명록 설정” 참고) 💕</p>';
+      return;
+    }
+    let db;
+    try{
+      if(!(firebase.apps && firebase.apps.length)) firebase.initializeApp(cfg);
+      db=firebase.database();
+    }catch(e){
+      list.innerHTML='<p class="gb-empty">방명록 연결에 실패했어요. 파이어베이스 설정을 확인해주세요.</p>'; return;
+    }
+    const ref=db.ref('guestbook');
+    function render(items){
+      if(!items.length){ list.innerHTML='<p class="gb-empty">아직 방명록이 없어요. 첫 메시지를 남겨보세요 ✍️</p>'; return; }
+      list.innerHTML=items.map(e=>`
+        <div class="gb-item">
+          <div class="gbn">${esc(e.name||'익명')}</div>
+          <div class="gbm">${esc(e.msg||'')}</div>
+          <div class="gbd">${e.ts?new Date(e.ts).toLocaleString('ko-KR',{dateStyle:'medium',timeStyle:'short'}):''}</div>
+        </div>`).join('');
+    }
+    ref.limitToLast(100).on('value',snap=>{
+      const arr=[]; snap.forEach(ch=>{ arr.push(ch.val()); }); arr.reverse(); render(arr);
+    },()=>{ list.innerHTML='<p class="gb-empty">방명록을 불러오지 못했어요. (DB 규칙을 확인해주세요)</p>'; });
+    function add(){
+      const name=(nameI.value||'').trim(), msg=(msgI.value||'').trim();
+      if(!name||!msg) return;
+      btn.disabled=true;
+      ref.push({name,msg,ts:Date.now()})
+        .then(()=>{ nameI.value=''; msgI.value=''; btn.disabled=false;
+          if(typeof confetti==='function') confetti({particleCount:40,spread:60,origin:{y:.8},colors:['#ff8fb1','#c9b6ff']}); })
+        .catch(()=>{ btn.disabled=false; alert('저장에 실패했어요. 잠시 후 다시 시도해주세요.'); });
+    }
+    if(btn) btn.addEventListener('click',add);
+    if(msgI) msgI.addEventListener('keydown',e=>{ if(e.key==='Enter') add(); });
+  })();
 
   // 떠다니는 하트
   const hearts=["💕","💗","🌸","✨","💖","🎀"], fl=$('floaties');

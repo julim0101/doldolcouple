@@ -1,0 +1,13 @@
+{
+  "name": "또요니 팬 페이지",
+  "short_name": "또요니 💕",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff5f9",
+  "theme_color": "#ff8fb1",
+  "icons": [
+    { "src": "photos/icon.jpg", "sizes": "192x192", "type": "image/jpeg", "purpose": "any" },
+    { "src": "photos/icon.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
