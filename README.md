@@ -65,10 +65,14 @@ https://julim0101.github.io/doldolcouple/
    ```json
    {
      "rules": {
-       "guestbook": { ".read": true, ".write": true }
+       "guestbook": { ".read": true, ".write": true },
+       "checkins":  { ".read": true, ".write": true },
+       "wishlist":  { ".read": true, ".write": true },
+       "capsules":  { ".read": true, ".write": true }
      }
    }
    ```
+   (방명록·기분 체크인·위시리스트·타임캡슐이 모두 이 규칙을 씁니다.)
 4. **웹 앱 등록해서 설정값 받기**
    프로젝트 개요(⚙️ 옆 홈) → **웹 아이콘 `</>`** 클릭 → 앱 닉네임 입력 → 등록 → 나오는 `firebaseConfig` 값(apiKey, authDomain, **databaseURL**, projectId 등)을 복사.
 5. **설정값 붙여넣기**

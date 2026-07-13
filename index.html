@@ -63,19 +63,27 @@ const DATA = {
   // ── 사진 갤러리 ────────────────────────────────
   // photos 폴더에 사진 넣고 파일 이름 적기. tag는 필터용(선택).
   gallery: [
-    { src: "photos/저 아기에요.jpg", caption: "저 아기에요 👶", tag: "어릴때" },
-    { src: "photos/야구콩.jpg",     caption: "야구콩 ⚾💛", tag: "데이트" },
-    { src: "photos/막 안아용.jpg",   caption: "막 안아용 🤗", tag: "셀카" },
-    { src: "photos/올리브돌.jpg",   caption: "올리브돌 🫒", tag: "데이트" },
-    { src: "photos/이건모냥.jpg",   caption: "이건모냥 🐱", tag: "셀카" },
-    { src: "photos/이쁘지요.jpg",   caption: "이쁘지요 💕", tag: "셀카" },
-    { src: "photos/포항항.jpg",     caption: "포항항 🌊", tag: "여행" },
-    { src: "photos/핑크목도리.jpg", caption: "핑크목도리 🧣💗", tag: "셀카" },
-    { src: "photos/추억1.jpg",      caption: "우리 추억 📸", tag: "데이트" },
-    { src: "photos/추억2.jpg",      caption: "볼빵빵 셀카 🥟", tag: "셀카" },
-    { src: "photos/추억3.jpg",      caption: "숙소에서 뒹굴 🛏️", tag: "여행" },
-    { src: "photos/추억4.jpg",      caption: "엘베 거울샷 🖤", tag: "셀카" },
-    { src: "photos/KakaoTalk_20260705_174022223_03.jpg", caption: "여행 숙소에서 🏨", tag: "여행" },
+    { src: "photos/저 아기에요.jpg", caption: "저 아기에요 👶" },
+    { src: "photos/나 아기야.jpg",   caption: "나 아기야 🍼" },
+    { src: "photos/귀여오.jpg",      caption: "귀여오 🥰" },
+    { src: "photos/나 요정이야.jpg", caption: "나 요정이야 🧚" },
+    { src: "photos/해바라기입니당.jpg", caption: "해바라기입니당 🌻" },
+    { src: "photos/껌딱지콩.jpg",    caption: "껌딱지콩 🤍" },
+    { src: "photos/오빠뿐.jpg",      caption: "오빠뿐 💗" },
+    { src: "photos/질투뿡.jpg",      caption: "질투뿡 😾" },
+    { src: "photos/몬가억울해요.jpg", caption: "몬가 억울해요 😤" },
+    { src: "photos/자전거두잘타구.jpg", caption: "자전거두 잘 타구 🚲" },
+    { src: "photos/야구콩.jpg",      caption: "야구콩 ⚾💛" },
+    { src: "photos/막 안아용.jpg",   caption: "막 안아용 🤗" },
+    { src: "photos/올리브돌.jpg",    caption: "올리브돌 🫒" },
+    { src: "photos/이쁘지요.jpg",    caption: "이쁘지요 💕" },
+    { src: "photos/포항항.jpg",      caption: "포항항 🌊" },
+    { src: "photos/핑크목도리.jpg",  caption: "핑크목도리 🧣💗" },
+    { src: "photos/KakaoTalk_20260713_211438031_01.jpg", caption: "우리 네컷 📸💙" },
+    { src: "photos/추억1.jpg",       caption: "우리 추억 📸" },
+    { src: "photos/추억2.jpg",       caption: "볼빵빵 셀카 🥟" },
+    { src: "photos/추억3.jpg",       caption: "숙소에서 뒹굴 🛏️" },
+    { src: "photos/추억4.jpg",       caption: "엘베 거울샷 🖤" },
   ],
 
   // ── 오늘의 운세 (날짜별로 자동 선택) ─────────────
@@ -346,6 +354,45 @@ const DATA = {
   .gb-item .gbd{font-size:.74rem;color:var(--ink-soft);margin-top:6px;}
   .gb-empty{text-align:center;color:var(--ink-soft);padding:18px;line-height:1.6;}
 
+  /* 기분 체크인 */
+  .ci-name{display:block;margin:0 auto 14px;padding:10px 16px;border-radius:999px;
+    border:2px solid var(--pink-soft);font-family:inherit;font-size:.95rem;outline:none;width:160px;text-align:center;}
+  .ci-name:focus{border-color:var(--pink);}
+  .checkin-moods{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px;}
+  .mood-btn{background:#fff;border:2px solid transparent;border-radius:16px;padding:10px 12px;cursor:pointer;
+    box-shadow:var(--shadow);font-size:26px;line-height:1;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.2s;}
+  .mood-btn span{font-size:.72rem;color:var(--ink-soft);font-weight:600;}
+  .mood-btn:hover{transform:translateY(-3px);border-color:var(--pink-soft);}
+  .checkin-list{display:flex;flex-direction:column;gap:8px;max-width:520px;margin:0 auto;}
+  .ci-item{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:10px 16px;box-shadow:var(--shadow);}
+  .ci-item .ci-emoji{font-size:24px;}
+  .ci-item .ci-txt{flex:1;font-size:.95rem;color:var(--ink);}
+  .ci-item .ci-time{font-size:.74rem;color:var(--ink-soft);}
+
+  /* 위시리스트 */
+  .wish-form{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px;}
+  .wish-form input{padding:11px 16px;border-radius:999px;border:2px solid var(--pink-soft);font-family:inherit;font-size:.95rem;outline:none;}
+  .wish-form #wishName{flex:0 0 100px;} .wish-form #wishItem{flex:1;min-width:180px;}
+  .wish-form input:focus{border-color:var(--pink);}
+  .wish-list{display:flex;flex-direction:column;gap:10px;max-width:560px;margin:0 auto;}
+  .wish-item{display:flex;gap:12px;align-items:center;background:var(--card);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);}
+  .wish-item .wish-who{flex:0 0 auto;background:var(--pink-bg);color:var(--pink);font-weight:700;font-size:.78rem;padding:4px 10px;border-radius:999px;}
+  .wish-item .wish-txt{flex:1;color:var(--ink);font-size:.98rem;word-break:break-word;}
+
+  /* 타임캡슐 */
+  .cap-form{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px;}
+  .cap-form input{padding:11px 16px;border-radius:999px;border:2px solid var(--pink-soft);font-family:inherit;font-size:.95rem;outline:none;}
+  .cap-form #capName{flex:0 0 100px;} .cap-form #capMsg{flex:1;min-width:180px;}
+  .cap-form #capDate{flex:0 0 auto;}
+  .cap-form input:focus{border-color:var(--pink);}
+  .cap-hint{text-align:center;color:var(--ink-soft);font-size:.85rem;margin-bottom:16px;min-height:18px;}
+  .cap-list{display:flex;flex-direction:column;gap:10px;max-width:560px;margin:0 auto;}
+  .cap-item{background:var(--card);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);}
+  .cap-item .cap-top{font-size:.9rem;color:var(--ink);}
+  .cap-item.locked{background:linear-gradient(135deg,#f6f2ff,#fff0f6);}
+  .cap-item .cap-msg{margin-top:6px;color:var(--ink);font-size:1rem;line-height:1.5;word-break:break-word;}
+  .cap-item .cap-locked{margin-top:6px;color:var(--ink-soft);font-size:.86rem;font-weight:600;}
+
   /* 오늘의 운세 */
   .fortune-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
   .fcard{background:var(--card);border-radius:18px;padding:18px 16px;text-align:center;
@@ -435,11 +482,14 @@ const DATA = {
 
   <nav>
     <a href="#today">🍀 오늘의 운세</a>
+    <a href="#checkin">😊 기분 체크인</a>
     <a href="#roulette">🎡 룰렛</a>
     <a href="#love">🌡️ 사랑 온도</a>
     <a href="#weather">⛅ 날씨</a>
     <a href="#fortune">🥠 포춘쿠키</a>
     <a href="#daily">📸 오늘의 사진</a>
+    <a href="#wishlist">⭐ 위시리스트</a>
+    <a href="#capsule">⏳ 타임캡슐</a>
     <a href="#guestbook">✍️ 방명록</a>
   </nav>
 
@@ -462,6 +512,14 @@ const DATA = {
         <div class="fval cheer-val" id="cheerMsg"></div>
       </div>
     </div>
+  </section>
+
+  <section id="checkin" class="reveal">
+    <h2 class="sec-title">😊 오늘 기분 체크인</h2>
+    <p class="sec-desc">지금 기분을 눌러 서로에게 알려줘요</p>
+    <input id="checkinName" class="ci-name" type="text" placeholder="이름" maxlength="12" />
+    <div class="checkin-moods" id="checkinMoods"></div>
+    <div class="checkin-list" id="checkinList"></div>
   </section>
 
   <section id="roulette" class="reveal">
@@ -522,6 +580,30 @@ const DATA = {
     </div>
   </section>
 
+  <section id="wishlist" class="reveal">
+    <h2 class="sec-title">⭐ 우리 위시리스트</h2>
+    <p class="sec-desc">둘 다 작성해야 서로의 위시가 공개돼요 🔒</p>
+    <div class="wish-form">
+      <input id="wishName" type="text" placeholder="이름" maxlength="12" />
+      <input id="wishItem" type="text" placeholder="같이 하고 싶은 것" maxlength="80" />
+      <button id="wishBtn" class="fortune-btn">추가</button>
+    </div>
+    <div class="wish-list" id="wishList"></div>
+  </section>
+
+  <section id="capsule" class="reveal">
+    <h2 class="sec-title">⏳ 타임캡슐 쪽지</h2>
+    <p class="sec-desc">최대 30일 뒤에 열리는 비밀 메시지</p>
+    <div class="cap-form">
+      <input id="capName" type="text" placeholder="이름" maxlength="12" />
+      <input id="capMsg" type="text" placeholder="미래에 전할 한마디" maxlength="140" />
+      <input id="capDate" type="date" />
+      <button id="capBtn" class="fortune-btn">🔒 캡슐 묻기</button>
+    </div>
+    <p class="cap-hint" id="capHint"></p>
+    <div class="cap-list" id="capList"></div>
+  </section>
+
   <section id="guestbook" class="reveal">
     <h2 class="sec-title">✍️ 방명록</h2>
     <p class="sec-desc">또요니, 한마디씩 남겨줘 💕</p>
@@ -554,6 +636,15 @@ const DATA = {
   const now = new Date();
   const daySeed = now.getFullYear()*10000 + (now.getMonth()+1)*100 + now.getDate();
   const pick = (arr, salt) => arr[(daySeed + (salt||0)) % arr.length];
+
+  // 파이어베이스 공용 헬퍼
+  function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function getDB(){
+    const cfg=d.firebaseConfig;
+    if(!cfg || !cfg.apiKey || typeof firebase==='undefined') return null;
+    try{ if(!(firebase.apps && firebase.apps.length)) firebase.initializeApp(cfg); return firebase.database(); }
+    catch(e){ return null; }
+  }
 
   // 기본 정보
   $('name').textContent = d.name || "";
@@ -763,6 +854,89 @@ const DATA = {
     cookie.classList.remove('cracked'); void cookie.offsetWidth; cookie.classList.add('cracked');
     setTimeout(()=>{ drawFortune(); ft.style.opacity=1; },200);
   });
+
+  // ── 기분 체크인 (공유) ──
+  (function(){
+    const moodsEl=$('checkinMoods'), listEl=$('checkinList'), nameI=$('checkinName'); if(!moodsEl) return;
+    const db=getDB();
+    if(!db){ listEl.innerHTML='<p class="gb-empty">파이어베이스 설정을 넣으면 기분 체크인이 켜져요 💕</p>'; return; }
+    const moods=[["😊","좋아"],["🥰","설레"],["😐","그냥"],["😴","피곤"],["🥳","신나"],["😢","슬퍼"],["🤒","아파"],["😡","화나"]];
+    moodsEl.innerHTML=moods.map(m=>`<button class="mood-btn" data-e="${m[0]}" data-l="${m[1]}">${m[0]}<span>${m[1]}</span></button>`).join('');
+    const ref=db.ref('checkins');
+    moodsEl.querySelectorAll('.mood-btn').forEach(b=>b.addEventListener('click',()=>{
+      const name=(nameI.value||'').trim();
+      if(!name){ nameI.focus(); nameI.placeholder='이름 먼저 적어줘!'; return; }
+      ref.push({name,emoji:b.dataset.e,label:b.dataset.l,ts:Date.now()});
+      if(typeof confetti==='function') confetti({particleCount:26,spread:50,origin:{y:.7}});
+    }));
+    ref.limitToLast(12).on('value',snap=>{
+      const arr=[]; snap.forEach(c=>arr.push(c.val())); arr.reverse();
+      if(!arr.length){ listEl.innerHTML='<p class="gb-empty">아직 체크인이 없어요. 첫 기분을 남겨봐요 😊</p>'; return; }
+      listEl.innerHTML=arr.map(c=>`<div class="ci-item"><span class="ci-emoji">${c.emoji||'🙂'}</span><span class="ci-txt"><b>${esc(c.name)}</b> · ${esc(c.label||'')}</span><span class="ci-time">${c.ts?new Date(c.ts).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span></div>`).join('');
+    },()=>{ listEl.innerHTML='<p class="gb-empty">불러오지 못했어요. (DB 규칙 확인)</p>'; });
+  })();
+
+  // ── 위시리스트 (둘 다 작성해야 공개) ──
+  (function(){
+    const listEl=$('wishList'), nameI=$('wishName'), itemI=$('wishItem'), btn=$('wishBtn'); if(!listEl) return;
+    const db=getDB();
+    if(!db){ listEl.innerHTML='<p class="gb-empty">파이어베이스 설정을 넣으면 위시리스트가 켜져요 💕</p>'; return; }
+    const ref=db.ref('wishlist');
+    function add(){
+      const name=(nameI.value||'').trim(), item=(itemI.value||'').trim();
+      if(!name||!item) return;
+      ref.push({name,item,ts:Date.now()}); itemI.value='';
+    }
+    if(btn) btn.addEventListener('click',add);
+    if(itemI) itemI.addEventListener('keydown',e=>{ if(e.key==='Enter') add(); });
+    ref.on('value',snap=>{
+      const arr=[]; snap.forEach(c=>arr.push(c.val()));
+      if(!arr.length){ listEl.innerHTML='<p class="gb-empty">아직 위시가 없어요. 먼저 하나 적어봐요 ⭐</p>'; return; }
+      const names=[...new Set(arr.map(w=>w.name))];
+      if(names.length<2){
+        listEl.innerHTML=`<p class="gb-empty">🔒 지금 <b>${names.length}명</b>이 작성했어요.<br>둘 다 작성하면 서로의 위시가 공개돼요!<br>(현재 ${arr.length}개 잠김)</p>`;
+        return;
+      }
+      arr.sort((a,b)=>a.ts-b.ts);
+      listEl.innerHTML=arr.map(w=>`<div class="wish-item"><span class="wish-who">${esc(w.name)}</span><span class="wish-txt">${esc(w.item)}</span></div>`).join('');
+    },()=>{ listEl.innerHTML='<p class="gb-empty">불러오지 못했어요. (DB 규칙 확인)</p>'; });
+  })();
+
+  // ── 타임캡슐 쪽지 (최대 30일) ──
+  (function(){
+    const listEl=$('capList'), nameI=$('capName'), msgI=$('capMsg'), dateI=$('capDate'), btn=$('capBtn'), hint=$('capHint'); if(!listEl) return;
+    const db=getDB();
+    if(!db){ listEl.innerHTML='<p class="gb-empty">파이어베이스 설정을 넣으면 타임캡슐이 켜져요 💕</p>'; return; }
+    const t0=new Date(); t0.setHours(0,0,0,0);
+    const min=new Date(t0.getTime()+864e5), max=new Date(t0.getTime()+30*864e5);
+    const fmt=x=>{ const y=x.getFullYear(), m=String(x.getMonth()+1).padStart(2,'0'), day=String(x.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; };
+    if(dateI){ dateI.min=fmt(min); dateI.max=fmt(max); dateI.value=fmt(min); }
+    const ref=db.ref('capsules');
+    function add(){
+      const name=(nameI.value||'').trim(), msg=(msgI.value||'').trim(), open=dateI.value;
+      if(!name||!msg||!open){ hint.textContent='이름·메시지·날짜를 모두 채워줘요 🙏'; return; }
+      const od=new Date(open+'T00:00:00'); od.setHours(0,0,0,0);
+      if(od.getTime()<min.getTime()||od.getTime()>max.getTime()){ hint.textContent='열리는 날짜는 내일부터 30일 이내로 정해줘요 📅'; return; }
+      ref.push({name,msg,openTs:od.getTime(),ts:Date.now()});
+      msgI.value=''; hint.textContent='캡슐을 묻었어요! '+open+'에 열려요 ⏳';
+      if(typeof confetti==='function') confetti({particleCount:40,spread:60,origin:{y:.8}});
+    }
+    if(btn) btn.addEventListener('click',add);
+    ref.limitToLast(50).on('value',snap=>{
+      const arr=[]; snap.forEach(c=>arr.push(c.val()));
+      if(!arr.length){ listEl.innerHTML='<p class="gb-empty">아직 묻은 캡슐이 없어요 ⏳</p>'; return; }
+      arr.sort((a,b)=>a.openTs-b.openTs);
+      const now=Date.now();
+      listEl.innerHTML=arr.map(c=>{
+        const dstr=new Date(c.openTs).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+        if(now>=c.openTs){
+          return `<div class="cap-item open"><div class="cap-top">📬 <b>${esc(c.name)}</b> · ${dstr}</div><div class="cap-msg">${esc(c.msg)}</div></div>`;
+        }
+        const left=Math.ceil((c.openTs-now)/864e5);
+        return `<div class="cap-item locked"><div class="cap-top">🔒 <b>${esc(c.name)}</b>님의 캡슐</div><div class="cap-locked">${dstr}에 열려요 · D-${left}</div></div>`;
+      }).join('');
+    },()=>{ listEl.innerHTML='<p class="gb-empty">불러오지 못했어요. (DB 규칙 확인)</p>'; });
+  })();
 
   // ── 방명록 (공유, Firebase) ──
   (function(){
